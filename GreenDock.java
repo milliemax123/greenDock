@@ -4,7 +4,10 @@
  */
 package greendock;
 
-import greendock.data.emissionRecords;
+import greendock.interfaces.manager;
+import greendock.interfaces.emissionsManager;
+import greendock.interfaces.calculate;
+import greendock.interfaces.inheritance.emissionCalc;
 
 /**
  * .java
@@ -14,20 +17,20 @@ import greendock.data.emissionRecords;
 
 
 public class GreenDock {
+    
+    
+    //fake data so data exists already in our app when a user opens it 
+     public static void sampleData(manager manager) {
+            manager.addRecord(new emissionCalc("IFSC", "Commercial", 13600, 800)); //17 pp                       //String areaName, String sector, double totalCo2, int population
+            manager.addRecord(new emissionCalc("Grand canal dock", "Transport", 3200, 200));//16pp
+            manager.addRecord(new emissionCalc("Spencer dock", "Mixed Use", 7000, 500));//14 pp
+            manager.addRecord(new emissionCalc("Point village", "Residential", 2250, 250));//9pp
+            manager.addRecord(new emissionCalc("North wall", "Industrial", 4200, 300));//14pp
+        }
+    
     public static void main(String[] args) {
-        emissionsManager manager = new emissionsManager();//craetes manager object so i can handle emmisions records
-
-        
-        //sample records
-        emissionRecords r1 = new emissionRecords("Grand Canal", "Transport", 5000, 200);
-        emissionRecords r2 = new emissionRecords("IFSC", "Commercial", 12000, 800);
-        emissionRecords r3 = new emissionRecords("Docklands South", "Residential", 7000, 300);
-
-        
-        //adding the samples to the apps sll list 
-        manager.addRecord(r1);
-        manager.addRecord(r2);
-        manager.addRecord(r3);
+        manager manager = new emissionsManager();//craetes manager object so i can handle emmisions records
+        sampleData(manager);//loads the smaple data into the main method 
 
         
         //no gui yet so using this
@@ -42,7 +45,6 @@ public class GreenDock {
         System.out.println(manager.findRecord("IFSC"));
 
         System.out.println("\nhigh emmisions areas:");
-        manager.flagHighEmissionArea("IFSC", 10);
         System.out.println(manager.displayFlaggedAreas());
 
         System.out.println("\nhistory stack:");
