@@ -4,52 +4,48 @@
  */
 package greendock;
 
-import greendock.data.emissionRecords;
+import greendock.interfaces.manager;
+import greendock.interfaces.emissionsManager;
+import greendock.interfaces.inheritance.emissionCalc;
 
 /**
- * .java
+ * GreenDock.java
  * @author Amelia Maxwell
  *x23471092
  */
 
 
 public class GreenDock {
+    
+    
+    //fake data so data exists already in our app when a user opens it 
+     public static void sampleData(manager manager) {
+           manager.addRecord(new emissionCalc(13600, "IFSC", "Commercial", 800));
+           manager.addRecord(new emissionCalc(3200, "Grand canal dock", "Transport", 200));
+           manager.addRecord(new emissionCalc(7000, "Spencer dock", "Mixed Use", 500));
+           manager.addRecord(new emissionCalc(2250, "Point village", "Residential", 250));
+           manager.addRecord(new emissionCalc(4200, "North wall", "Industrial", 300));
+        }
+    
     public static void main(String[] args) {
-        emissionsManager manager = new emissionsManager();//craetes manager object so i can handle emmisions records
-
+        manager manager = new emissionsManager();//craetes manager object so i can handle emmisions records
+        sampleData(manager);//loads the smaple data into the main method 
+        new GUI().setVisible(true);//opens my gui 
         
-        //sample records
-        emissionRecords r1 = new emissionRecords("Grand Canal", "Transport", 5000, 200);
-        emissionRecords r2 = new emissionRecords("IFSC", "Commercial", 12000, 800);
-        emissionRecords r3 = new emissionRecords("Docklands South", "Residential", 7000, 300);
-
-        
-        //adding the samples to the apps sll list 
-        manager.addRecord(r1);
-        manager.addRecord(r2);
-        manager.addRecord(r3);
-
-        
-        //no gui yet so using this
+        //used this for testing outputs in the console before gui 
         System.out.println("\nall records:");
         System.out.println(manager.displayAllRecords());
-
         System.out.println("\nfind record:");
         System.out.println(manager.findRecord("IFSC"));
-
         System.out.println("\nupdate record:");
         manager.updateRecord("IFSC", 15000, 850, "Commercial");
         System.out.println(manager.findRecord("IFSC"));
-
         System.out.println("\nhigh emmisions areas:");
-        manager.flagHighEmissionArea("IFSC", 10);
         System.out.println(manager.displayFlaggedAreas());
-
         System.out.println("\nhistory stack:");
         System.out.println(manager.displayViewedHistory());
-
         System.out.println("\ndelete record:");
-        manager.deleteRecord("Grand Canal");
+        manager.deleteRecord("Grand canal dock");
         System.out.println(manager.displayAllRecords());
     }
 }

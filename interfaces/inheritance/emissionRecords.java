@@ -1,0 +1,42 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package greendock.interfaces.inheritance;
+import java.io.Serializable;
+
+/**
+ * emissionsRecords.java
+ * @author Amelia Maxwell
+ *x23471092
+ * INHERITANCE, this is the sbstract parent class for personalEmissions and emissionCalc
+ * this class stores the shared totalco2 between the two child classes
+ */
+
+public abstract class emissionRecords implements Serializable{
+    protected double totalCo2;
+
+    public emissionRecords(double totalCo2){
+        this.totalCo2=totalCo2;//annual co2 emission
+    }
+    
+    //getters and setters 
+    public double getTotalCo2() {
+        return totalCo2;
+    }
+    public void setTotalCo2(double totalCo2) {
+        this.totalCo2 = totalCo2;
+    }
+   
+
+    public String getEmissionCategory() {//gives the user a sort of level about their emissions
+        double value = totalCo2;
+        if (value < 5) return "Low";
+        else if (value < 10) return "Moderate";
+        else return "High";
+    }
+    
+    public String getEmissionSummary() {//tidy summary 
+        return "tonnes of CO2 per year: " + totalCo2 ;
+}
+}

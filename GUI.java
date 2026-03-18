@@ -3,21 +3,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package greendock;
+import greendock.interfaces.emissionsManager;
+import greendock.interfaces.manager;
+import greendock.interfaces.calculate;
+import greendock.interfaces.inheritance.emissionCalc;
 
 /**
- *
- * @author myrea
+ * GUI.java
+ * @author Amelia Maxwell
+ *x23471092
+ * GUI for adding a dockland areas emission reports, also deleting and updating reports.
+ * also for veiwing all reports, veiwing flagged reports, history and takes user to clalculator screen
  */
+
 public class GUI extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI.class.getName());
 
+    //creating manager object to store and control all emission records
+    private final manager manager = new emissionsManager();
+    
+    
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
+        //filling my combo boxes with the options
+         AreaCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+                "IFSC", "Grand canal dock", "Spencer dock", "Point village", "North wall"
+            }));
+         sectorCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+                "Commercial", "Transport", "Mixed Use", "Residential", "Industrial"
+            }));
+         
+         //adding some default records
+        manager.addRecord(new emissionCalc(13600, "IFSC", "Commercial", 800));
+        manager.addRecord(new emissionCalc(3200, "Grand canal dock", "Transport", 200));
+        manager.addRecord(new emissionCalc(7000, "Spencer dock", "Mixed Use", 500));
+        manager.addRecord(new emissionCalc(2250, "Point village", "Residential", 250));
+        manager.addRecord(new emissionCalc(4200, "North wall", "Industrial", 300));
+        jTextArea1.setText(manager.displayAllRecords());//this shows all the existing records in a text area
+         
+
+         
     }
+    
+    //helper method that sets all input fields blank
+    private void clearInputs() {
+        co2TF.setText("");
+        populationTF.setText("");
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,21 +64,301 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        AreaCB = new javax.swing.JComboBox<>();
+        sectorCB = new javax.swing.JComboBox<>();
+        co2TF = new javax.swing.JTextField();
+        populationTF = new javax.swing.JTextField();
+        addB = new javax.swing.JButton();
+        findB = new javax.swing.JButton();
+        updateB = new javax.swing.JButton();
+        deleteB = new javax.swing.JButton();
+        historyB = new javax.swing.JButton();
+        veiwB = new javax.swing.JButton();
+        veiwFlaggedB = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel1.setText("GreenDock");
+
+        jLabel2.setText("Area name:");
+
+        jLabel3.setText("Sector type:");
+
+        jLabel4.setText("Total Co2:");
+
+        jLabel5.setText("Population:");
+
+        AreaCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        sectorCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        populationTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                populationTFActionPerformed(evt);
+            }
+        });
+
+        addB.setText("add record");
+        addB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBActionPerformed(evt);
+            }
+        });
+
+        findB.setText("find record");
+        findB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findBActionPerformed(evt);
+            }
+        });
+
+        updateB.setText("update record");
+        updateB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBActionPerformed(evt);
+            }
+        });
+
+        deleteB.setText("delete record");
+        deleteB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBActionPerformed(evt);
+            }
+        });
+
+        historyB.setText("veiw History");
+        historyB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyBActionPerformed(evt);
+            }
+        });
+
+        veiwB.setText("view all Records");
+        veiwB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                veiwBActionPerformed(evt);
+            }
+        });
+
+        veiwFlaggedB.setText("veiw flagged areas");
+        veiwFlaggedB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                veiwFlaggedBActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jButton1.setText("my Co2 emissions");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(sectorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(AreaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(co2TF, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(populationTF, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(15, 15, 15))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(addB, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(veiwB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(findB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(updateB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(veiwFlaggedB, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(historyB, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(AreaCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteB)
+                            .addComponent(historyB))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(sectorCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(veiwB)
+                            .addComponent(veiwFlaggedB))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(co2TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(findB)
+                                    .addComponent(jButton1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(populationTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(updateB))
+                        .addGap(5, 5, 5)
+                        .addComponent(addB)
+                        .addGap(1, 1, 1))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void populationTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_populationTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_populationTFActionPerformed
+
+    private void addBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBActionPerformed
+        try {
+            //gets items from combo boxes
+            String area = AreaCB.getSelectedItem().toString();
+            String sector = sectorCB.getSelectedItem().toString();
+            //gtes user co2 and population input and converts them into the values we need
+            double co2 = Double.parseDouble(co2TF.getText());
+            int population = Integer.parseInt(populationTF.getText());
+             //creates new emiision record object  then adds to mamager
+            calculate record = new emissionCalc(co2, area, sector, population);
+            manager.addRecord(record);
+            //refreshes to display new record with sucess message
+            jTextArea1.setText("record added \n\n" + manager.displayAllRecords());
+            clearInputs();//clears for next record input
+
+        } catch (NumberFormatException e) {
+            jTextArea1.setText("enter valid numbers please");//error handling
+        }
+    }//GEN-LAST:event_addBActionPerformed
+
+    private void veiwBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veiwBActionPerformed
+    jTextArea1.setText(manager.displayAllRecords());//shows alls tored record
+    }//GEN-LAST:event_veiwBActionPerformed
+
+    private void veiwFlaggedBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_veiwFlaggedBActionPerformed
+    jTextArea1.setText(manager.displayFlaggedAreas());//shows all flagged areas
+    }//GEN-LAST:event_veiwFlaggedBActionPerformed
+
+    private void findBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findBActionPerformed
+        String area = AreaCB.getSelectedItem().toString();//gets sleected area from combo box
+        calculate found = manager.findRecord(area);//using manager for search for records in that area
+
+        if (found != null) {
+            jTextArea1.setText(found.toString());//displays found record or shows error message
+        } else {
+            jTextArea1.setText("record not found");
+        }
+    
+    }//GEN-LAST:event_findBActionPerformed
+
+    private void updateBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBActionPerformed
+        try {
+            String area = AreaCB.getSelectedItem().toString();//gets area nd sector from combo boxes
+            String sector = sectorCB.getSelectedItem().toString();
+            //parses user input
+            double co2 = Double.parseDouble(co2TF.getText());
+            int population = Integer.parseInt(populationTF.getText());
+              //tries updatein 
+            boolean updated = manager.updateRecord(area, co2, population, sector);
+
+            if (updated) {//sucess message or failure message, or also a message if user inputing worng details
+                jTextArea1.setText("Record updated successfully\n\n" + manager.findRecord(area));
+                clearInputs();
+            } else {
+                jTextArea1.setText("record not found");
+            }
+        } catch (NumberFormatException e) {
+            jTextArea1.setText("please enter valid numbers for CO2 and population");
+        }
+    }//GEN-LAST:event_updateBActionPerformed
+
+    private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBActionPerformed
+     String area = AreaCB.getSelectedItem().toString();//gets slected area and attemps tp delete the record
+    boolean deleted = manager.deleteRecord(area);
+
+    if (deleted) {//sucess or fialure messages
+        jTextArea1.setText("the reecord was deleted successfully\n\n" + manager.displayAllRecords());
+    } else {
+        jTextArea1.setText("Record not found");
+    }
+    }//GEN-LAST:event_deleteBActionPerformed
+
+    private void historyBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyBActionPerformed
+        jTextArea1.setText(manager.displayViewedHistory());//displays recently veiwed/searche drecords
+    }//GEN-LAST:event_historyBActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       new calcGUI().setVisible(true);//takes uer to calculator
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +386,25 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> AreaCB;
+    private javax.swing.JButton addB;
+    private javax.swing.JTextField co2TF;
+    private javax.swing.JButton deleteB;
+    private javax.swing.JButton findB;
+    private javax.swing.JButton historyB;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField populationTF;
+    private javax.swing.JComboBox<String> sectorCB;
+    private javax.swing.JButton updateB;
+    private javax.swing.JButton veiwB;
+    private javax.swing.JButton veiwFlaggedB;
     // End of variables declaration//GEN-END:variables
 }
