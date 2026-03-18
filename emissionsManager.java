@@ -4,7 +4,7 @@
  */
 package greendock;
 
-import greendock.data.emissionRecords;
+import greendock.data.emissionCalc;
 import greendock.interfaces.manager;
 import greendock.structures.SLL;
 import greendock.structures.ReviewQueue;
@@ -31,7 +31,7 @@ public class emissionsManager implements manager {
 
     //adds new record to the list 
     @Override
-    public void addRecord(emissionRecords record) {
+    public void addRecord(emissionCalc record) {
         recordList.add(record);
     }
 
@@ -39,8 +39,8 @@ public class emissionsManager implements manager {
     
     //finds a record based off its area name and adds it to our stack for recently veiwed records
     @Override
-    public emissionRecords findRecord(String areaName) {
-        emissionRecords record = recordList.find(areaName);
+    public emissionCalc findRecord(String areaName) {
+        emissionCalc record = recordList.find(areaName);
         if (record != null) {
             viewedHistory.push(record);
         }
@@ -52,7 +52,7 @@ public class emissionsManager implements manager {
     //updates the datas values in a record
     @Override
     public boolean updateRecord(String areaName, double totalCo2, int population, String sector) {
-        emissionRecords record = recordList.find(areaName);
+        emissionCalc record = recordList.find(areaName);
 
         if (record == null) {
             return false;
@@ -81,7 +81,7 @@ public class emissionsManager implements manager {
     
 //adds high co2 areas to or queue based on a co2 threshold
     public void flagHighEmissionArea(String areaName, double threshold) {
-        emissionRecords record = recordList.find(areaName);
+        emissionCalc record = recordList.find(areaName);
 
         if (record != null && record.calculatePerCapita() > threshold) {
             flaggedAreas.enqueue(record);
@@ -103,7 +103,7 @@ public class emissionsManager implements manager {
     
     
 
-    public emissionRecords getMostRecentViewed() {
+    public emissionCalc getMostRecentViewed() {
         return viewedHistory.peek();
     }
 }

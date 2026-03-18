@@ -4,7 +4,7 @@
  */
 package greendock;
 
-import greendock.data.emissionRecords;
+import greendock.data.emissionCalc;
 
 /**
  * .java
@@ -14,20 +14,20 @@ import greendock.data.emissionRecords;
 
 
 public class GreenDock {
+    
+    
+    //fake data so data exists already in our app when a user opens it 
+     public static void sampleData(emissionsManager manager) {
+            manager.addRecord(new emissionCalc("IFSC", "Commercial", 11000, 800));//String areaName, String sector, double totalCo2, int population
+            manager.addRecord(new emissionCalc("Grand canal dock", "Transport", 3200, 200));
+            manager.addRecord(new emissionCalc("Spencer dock", "Mixed Use", 8000, 500));
+            manager.addRecord(new emissionCalc("Point village", "Residential", 6600, 250));
+            manager.addRecord(new emissionCalc("North wall", "Industrial", 8000, 300));
+        }
+    
     public static void main(String[] args) {
         emissionsManager manager = new emissionsManager();//craetes manager object so i can handle emmisions records
-
-        
-        //sample records
-        emissionRecords r1 = new emissionRecords("Grand Canal", "Transport", 5000, 200);
-        emissionRecords r2 = new emissionRecords("IFSC", "Commercial", 12000, 800);
-        emissionRecords r3 = new emissionRecords("Docklands South", "Residential", 7000, 300);
-
-        
-        //adding the samples to the apps sll list 
-        manager.addRecord(r1);
-        manager.addRecord(r2);
-        manager.addRecord(r3);
+        sampleData(manager);//loads the smaple data into the main method 
 
         
         //no gui yet so using this
